@@ -61,22 +61,6 @@ var Questions = [
 function nextQuestion()
 {
     index++;
-}
-
-function displayQuestions() 
-{
-    if(endOfQuiz == false)
-    {
-        console.log(index);
-        $("#question").html("<p>" + Questions[index].quizQuestion+ "</p>");
-        $(".options").html("<p class='option'><input class='radio' type='radio' name='option' value='" + Questions[index].options[0]+ "'>" + Questions[index].options[0] + "<br></p>");
-        $(".options").append("<p class='option'><input class='radio' type='radio' name='option' value='" + Questions[index].options[1]+ "'>" + Questions[index].options[1]+ "<br></p>");
-       
-        checkAnswer();
-
-    }
-}
-$(".submitButton").click(function(){
     if(index >= Questions.length)
     {
         endOfQuiz = true;
@@ -85,18 +69,33 @@ $(".submitButton").click(function(){
     else{
         displayQuestions();
     }
+}
 
-});
+function displayQuestions() 
+{
+    if(endOfQuiz == false)
+    {
+        console.log("Index is " + index);
+        $("#question").html("<p>" + Questions[index].quizQuestion+ "</p>");
+        $(".options").html("<p class='option'><input class='radio form-check-input' type='radio' name='option' value='" + Questions[index].options[0]+ "'>" + Questions[index].options[0] + "<br></p>");
+        $(".options").append("<p class='option'><input class='radio form-check-input' type='radio' name='option' value='" + Questions[index].options[1]+ "'>" + Questions[index].options[1]+ "<br></p>");
+       
+        checkAnswer();
+        
+
+    }
+}
 
 
 function checkAnswer() 
 {
     $(".radio").click(function(){
         var radioValue = $(".radio:checked").val();
-        console.log(radioValue);
+        console.log("Radio Value is " + radioValue);
         if(radioValue == Questions[index].correctAnswer) 
         {
             score++;
+            console.log("Score is " + score);
             nextQuestion();
           
         }
